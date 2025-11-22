@@ -3,9 +3,14 @@
 const USERS_KEY = 'cinemind_users';
 const CURRENT_USER_KEY = 'cinemind_current_user';
 
-export const initializeUsers = (initialUsers) => {
+const defaultUsers = [
+  { username: "demo", password: "demo123", email: "demo@cinemind.com", name: "Demo User" },
+  { username: "cinephile", password: "movies123", email: "cinephile@cinemind.com", name: "Cinema Lover" }
+];
+
+export const initializeUsers = () => {
   if (!localStorage.getItem(USERS_KEY)) {
-    localStorage.setItem(USERS_KEY, JSON.stringify(initialUsers));
+    localStorage.setItem(USERS_KEY, JSON.stringify(defaultUsers));
   }
 };
 

@@ -5,14 +5,14 @@ import SearchBar from "@/components/SearchBar";
 import MovieGrid from "@/components/MovieGrid";
 import { movies as defaultMovies } from "@/data/content";
 import { loadMovies } from "@/utils/storage";
-import { initializeUsers, initialUsers } from "@/data/content";
+import { initializeUsers } from "@/utils/auth";
 
 const Home = () => {
   const [movies, setMovies] = useState(loadMovies(defaultMovies));
   const [filteredMovies, setFilteredMovies] = useState(movies);
 
   useEffect(() => {
-    initializeUsers(initialUsers);
+    initializeUsers();
   }, []);
 
   const handleSearch = (query: string) => {
