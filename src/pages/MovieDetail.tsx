@@ -16,11 +16,29 @@ const MovieDetail = () => {
   const [currentUser, setCurrentUser] = useState(getCurrentUser());
 
   useEffect(() => {
-    // Reset state and fetch fresh movie data on id change
     setMovie(null);
-    const allMovies = loadMovies(defaultMovies);
-    const found = allMovies.find((m: any) => String(m.id) === String(id));
+
+    // Load existing movies (with reviews)
+    const storedMovies = loadMovies(defaultMovies);
+
+    // Load latest movie definitions (from updated content.js)
+    const freshMovies = defaultMovies;
+
+    // Merge reviews from storedMovies into freshMovies
+    const mergedMovies = freshMovies.map((freshMovie) => {
+      const oldMovie = storedMovies.find((m) => m.id === freshMovie.id);
+      return {
+        ...freshMovie,
+        reviews: oldMovie?.reviews || [], // keep old reviews
+      };
+    });
+
+    // Save merged movies back to storage
+    saveMovies(mergedMovies);
+
+    const found = mergedMovies.find((m: any) => String(m.id) === String(id));
     setMovie(found || null);
+
     setCurrentUser(getCurrentUser());
   }, [id]);
 
@@ -32,13 +50,17 @@ const MovieDetail = () => {
       user: currentUser.username,
       rating,
       text,
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split("T")[0],
     };
 
     const updatedReviews = [...movie.reviews, newReview];
     const allMovies = loadMovies(defaultMovies);
-    const updatedMovies = updateMovieReviews(movie.id, updatedReviews, allMovies);
-    
+    const updatedMovies = updateMovieReviews(
+      movie.id,
+      updatedReviews,
+      allMovies
+    );
+
     const updatedMovie = updatedMovies.find((m: any) => m.id === movie.id);
     setMovie(updatedMovie);
   };
@@ -48,7 +70,9 @@ const MovieDetail = () => {
       <div className="min-h-screen bg-background">
         <TopNav />
         <div className="container mx-auto px-6 py-16 text-center">
-          <h1 className="text-3xl font-serif text-foreground">Movie not found</h1>
+          <h1 className="text-3xl font-serif text-foreground">
+            Movie not found
+          </h1>
           <Link to="/movies">
             <Button className="mt-6 bg-gold text-charcoal hover:bg-gold-glow">
               Back to Movies
@@ -59,17 +83,24 @@ const MovieDetail = () => {
     );
   }
 
-  const avgRating = movie.reviews.length > 0
-    ? (movie.reviews.reduce((sum: number, r: any) => sum + r.rating, 0) / movie.reviews.length).toFixed(1)
-    : movie.rating;
+  const avgRating =
+    movie.reviews.length > 0
+      ? (
+          movie.reviews.reduce((sum: number, r: any) => sum + r.rating, 0) /
+          movie.reviews.length
+        ).toFixed(1)
+      : movie.rating;
 
   return (
     <div className="min-h-screen bg-background">
       <TopNav />
-      
+
       <section className="container mx-auto px-6 py-16">
         <Link to="/movies">
-          <Button variant="ghost" className="mb-6 text-gold hover:text-gold-glow hover:bg-gold/10">
+          <Button
+            variant="ghost"
+            className="mb-6 text-gold hover:text-gold-glow hover:bg-gold/10"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Movies
           </Button>
@@ -86,7 +117,9 @@ const MovieDetail = () => {
 
           <div className="md:col-span-3 space-y-8">
             <div>
-              <Badge className="bg-gold text-charcoal mb-3">{movie.language}</Badge>
+              <Badge className="bg-gold text-charcoal mb-3">
+                {movie.language}
+              </Badge>
               <h1 className="text-6xl font-serif font-bold text-foreground mb-4">
                 {movie.title}
               </h1>
@@ -98,8 +131,12 @@ const MovieDetail = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <Star className="w-6 h-6 fill-gold text-gold" />
-                  <span className="text-2xl font-semibold text-foreground">{avgRating}/5</span>
-                  <span className="text-sm">({movie.reviews.length} reviews)</span>
+                  <span className="text-2xl font-semibold text-foreground">
+                    {avgRating}/5
+                  </span>
+                  <span className="text-sm">
+                    ({movie.reviews.length} reviews)
+                  </span>
                 </div>
               </div>
             </div>

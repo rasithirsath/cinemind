@@ -8,7 +8,7 @@ import { loadMovies } from "@/utils/storage";
 import { initializeUsers } from "@/utils/auth";
 
 const Home = () => {
-  const [movies, setMovies] = useState(loadMovies(defaultMovies));
+  const [movies, setMovies] = useState(defaultMovies);
   const [filteredMovies, setFilteredMovies] = useState(movies);
 
   useEffect(() => {
@@ -21,10 +21,11 @@ const Home = () => {
       return;
     }
 
-    const filtered = movies.filter((movie) =>
-      movie.title.toLowerCase().includes(query.toLowerCase()) ||
-      movie.language.toLowerCase().includes(query.toLowerCase()) ||
-      movie.director.name.toLowerCase().includes(query.toLowerCase())
+    const filtered = movies.filter(
+      (movie) =>
+        movie.title.toLowerCase().includes(query.toLowerCase()) ||
+        movie.language.toLowerCase().includes(query.toLowerCase()) ||
+        movie.director.name.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredMovies(filtered);
   };
@@ -33,7 +34,7 @@ const Home = () => {
     <div className="min-h-screen bg-background">
       <TopNav />
       <Hero />
-      
+
       <section className="container mx-auto px-6 py-16">
         <div className="mb-12">
           <h2 className="text-4xl font-serif font-bold text-foreground mb-4 text-center">
@@ -42,11 +43,14 @@ const Home = () => {
           <p className="text-center text-muted-foreground mb-8 max-w-2xl mx-auto">
             Search through our curated collection of masterpieces
           </p>
-          <SearchBar onSearch={handleSearch} placeholder="Search movies by title, language, or director..." />
+          <SearchBar
+            onSearch={handleSearch}
+            placeholder="Search movies by title, language, or director..."
+          />
         </div>
 
-        <MovieGrid 
-          movies={filteredMovies.slice(0, 12)} 
+        <MovieGrid
+          movies={filteredMovies.slice(0, 12)}
           emptyMessage="No movies found. Try a different search term."
         />
       </section>

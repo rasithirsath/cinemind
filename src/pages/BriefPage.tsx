@@ -13,8 +13,7 @@ const BriefPage = () => {
   const [movie, setMovie] = useState<any>(null);
 
   useEffect(() => {
-    const allMovies = loadMovies(defaultMovies);
-    const found = allMovies.find((m: any) => String(m.id) === String(id));
+    const found = defaultMovies.find((m: any) => String(m.id) === String(id));
     setMovie(found || null);
   }, [id]);
 
@@ -23,7 +22,9 @@ const BriefPage = () => {
       <div className="min-h-screen bg-background">
         <TopNav />
         <div className="container mx-auto px-6 py-16 text-center">
-          <h1 className="text-3xl font-serif text-foreground">Movie not found</h1>
+          <h1 className="text-3xl font-serif text-foreground">
+            Movie not found
+          </h1>
           <Link to="/movies">
             <Button className="mt-6 bg-gold text-charcoal hover:bg-gold-glow">
               Back to Movies
@@ -37,7 +38,7 @@ const BriefPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <TopNav />
-      
+
       <section className="container mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-12 mb-12">
           <div className="relative group">
@@ -50,9 +51,11 @@ const BriefPage = () => {
 
           <div className="flex flex-col justify-center">
             <div className="mb-4">
-              <Badge className="bg-gold text-charcoal mb-2">{movie.language}</Badge>
+              <Badge className="bg-gold text-charcoal mb-2">
+                {movie.language}
+              </Badge>
             </div>
-            
+
             <h1 className="text-5xl font-serif font-bold text-foreground mb-4">
               {movie.title}
             </h1>
@@ -64,7 +67,9 @@ const BriefPage = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Star className="w-5 h-5 fill-gold text-gold" />
-                <span className="text-xl font-semibold text-foreground">{movie.rating}/5</span>
+                <span className="text-xl font-semibold text-foreground">
+                  {movie.rating}/5
+                </span>
               </div>
             </div>
 
@@ -93,7 +98,10 @@ const BriefPage = () => {
             </div>
 
             <Link to={`/movie/${movie.id}`}>
-              <Button size="lg" className="w-full bg-gold text-charcoal hover:bg-gold-glow gold-glow">
+              <Button
+                size="lg"
+                className="w-full bg-gold text-charcoal hover:bg-gold-glow gold-glow"
+              >
                 View Full Details
               </Button>
             </Link>
