@@ -4,26 +4,16 @@ import { Film, Sparkles } from "lucide-react";
 
 const Hero = () => {
   return (
-    <section className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Background collage */}
-      <div className="absolute inset-0 grid grid-cols-4 md:grid-cols-6 gap-2 opacity-20">
-        {[...Array(24)].map((_, i) => (
-          <div
-            key={i}
-            className="aspect-square bg-cover bg-center animate-pulse"
-            style={{
-              backgroundImage: `url(https://images.unsplash.com/photo-${
-                ['1507003211169', '1506794778202', '1500648767791', '1472099645785', '1519085360753', '1438761681033'][i % 6]
-              }-0a1dd7228f2d?w=300&h=300&fit=crop)`,
-              animationDelay: `${i * 0.1}s`,
-              animationDuration: '3s'
-            }}
-          />
-        ))}
+    <section
+      className="relative h-screen w-full flex items-center justify-center bg-cover bg-center"
+      style={{
+        backgroundImage: `url('https://thecinemaholic.com/wp-content/uploads/2016/08/20-Greatest-Indian-Directors.jpg?resize=300')`, // 👉 Replace with your image path
+      }}
+    >
+      {/* Soft shadow around content only */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="w-[90%] max-w-4xl h-[70%] mx-auto rounded-3xl shadow-[0_0_120px_40px_rgba(0,0,0,0.45)] pointer-events-none" />
       </div>
-
-      {/* Glass overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background/90 backdrop-blur-sm" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl">
@@ -33,28 +23,29 @@ const Hero = () => {
             <Sparkles className="w-8 h-8 text-gold-glow absolute -top-2 -right-2 animate-bounce" />
           </div>
         </div>
-        
+
         <h1 className="text-6xl md:text-8xl font-bold text-gold mb-6 font-serif drop-shadow-2xl">
           Cinemind
         </h1>
-        
-        <p className="text-xl md:text-2xl text-ivory mb-8 max-w-2xl mx-auto leading-relaxed">
-          Where Every Frame Tells a Story. Discover, Review, and Celebrate Cinema's Greatest Moments.
+
+        <p className="text-xl md:text-2xl text-ivory mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
+          Where Every Frame Tells a Story. Discover, Review, and Celebrate
+          Cinema's Greatest Moments.
         </p>
-        
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/movies">
-            <Button 
-              size="lg" 
+            <Button
+              size="lg"
               className="bg-gold text-charcoal hover:bg-gold-glow gold-glow text-lg px-8 py-6 transition-smooth"
             >
               Browse Movies
             </Button>
           </Link>
           <Link to="/series">
-            <Button 
-              size="lg" 
-              variant="outline" 
+            <Button
+              size="lg"
+              variant="outline"
               className="border-gold text-gold hover:bg-gold/10 text-lg px-8 py-6 transition-smooth"
             >
               Explore Series
@@ -62,9 +53,6 @@ const Hero = () => {
           </Link>
         </div>
       </div>
-
-      {/* Bottom fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent" />
     </section>
   );
 };
