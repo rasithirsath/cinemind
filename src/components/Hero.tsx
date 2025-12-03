@@ -5,18 +5,28 @@ import { Film, Sparkles } from "lucide-react";
 const Hero = () => {
   return (
     <section
-      className="relative h-screen w-full flex items-center justify-center bg-cover bg-center"
-      style={{
-        backgroundImage: `url('https://thecinemaholic.com/wp-content/uploads/2016/08/20-Greatest-Indian-Directors.jpg?resize=300')`, // 👉 Replace with your image path
-      }}
+      className="
+        relative h-screen w-full flex items-center justify-center
+        bg-cover bg-center bg-no-repeat
+
+        /* Mobile background */
+        bg-[url('https://thecinemaholic.com/wp-content/uploads/2016/08/20-Greatest-Indian-Directors.jpg?resize=300')]
+
+        /* Tablet & Desktop background */
+        sm:bg-[url('https://thecinemaholic.com/wp-content/uploads/2016/08/20-Greatest-Indian-Directors.jpg')]
+      "
     >
-      {/* Soft shadow around content only */}
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-black/40" />
+
+      {/* Soft shadow box */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="w-[90%] max-w-4xl h-[70%] mx-auto rounded-3xl shadow-[0_0_120px_40px_rgba(0,0,0,0.45)] pointer-events-none" />
       </div>
 
       {/* Content */}
       <div className="relative z-10 text-center px-6 max-w-4xl">
+        {/* Icon */}
         <div className="flex justify-center mb-6">
           <div className="relative">
             <Film className="w-24 h-24 text-gold animate-pulse" />
@@ -24,15 +34,18 @@ const Hero = () => {
           </div>
         </div>
 
-        <h1 className="text-6xl md:text-8xl font-bold text-gold mb-6 font-serif drop-shadow-2xl">
+        {/* Title */}
+        <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-gold mb-6 font-serif drop-shadow-2xl">
           Cinemind
         </h1>
 
-        <p className="text-xl md:text-2xl text-ivory mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
+        {/* Subtitle */}
+        <p className="text-lg md:text-2xl text-ivory mb-8 max-w-2xl mx-auto leading-relaxed drop-shadow-lg">
           Where Every Frame Tells a Story. Discover, Review, and Celebrate
           Cinema's Greatest Moments.
         </p>
 
+        {/* Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Link to="/movies">
             <Button
@@ -42,6 +55,7 @@ const Hero = () => {
               Browse Movies
             </Button>
           </Link>
+
           <Link to="/series">
             <Button
               size="lg"
